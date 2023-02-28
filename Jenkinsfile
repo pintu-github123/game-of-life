@@ -13,12 +13,15 @@ pipeline{
 	
         triggers {
             cron('0 * * * *') ////Build periodically every one hour
+	    pollSCM('*/5 * * * *')
         }
 
         stages{
               stage( 'SourceCode' ){
                     steps{
                          git branch: 'master', credentialsId: 'jenkins-28022022', url: 'https://github.com/pintu-github123/game-of-life.git'
+			 input message: 'Continue to the next stage?',submitter: 'jenkins'
+			 //https://www.jenkins.io/doc/book/pipeline/syntax/#input
                     }
               }
              stage('Build the Source Code'){
@@ -44,7 +47,7 @@ pipeline{
             // send the success email
             mail bcc: '', body: 'Build Successfull', cc: 'sksahoo2007@gmail.com', from: 'TCS World bank Project', replyTo: '', 
 	    subject: 'game-of-line Pipeline Project', to: 'subhrak.sahoo@gmail.com'
-            echo "$BRANCH_NAME branch Successfull executed with Build N0 - $BUILD_NUMBER"
+            echo " Successfull "
         }
         unsuccessful {
             //send the unsuccess email

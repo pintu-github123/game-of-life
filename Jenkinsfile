@@ -15,18 +15,23 @@ pipeline{
             cron('0 * * * *') ////Build periodically every one hour
 	    pollSCM('*/5 * * * *')
         }
+     
+        parameters { 
+	      choice(name: 'GOAL', choices: ['compile', 'package', 'clean package']) 
+	}
+
 
         stages{
               stage( 'SourceCode' ){
                     steps{
                          git branch: 'master', credentialsId: 'jenkins-28022022', url: 'https://github.com/pintu-github123/game-of-life.git'
-			 input message: 'Continue to the next stage?',submitter: 'jenkins'
+			 //input message: 'Continue to the next stage?',submitter: 'jenkins'
 			 //https://www.jenkins.io/doc/book/pipeline/syntax/#input
                     }
               }
              stage('Build the Source Code'){
                     steps{
-                        sh 'mvn clean package '
+                        sh " mvn ${params.GOAL} " 
                     }
              }
              stage('Archive The Artifact'){

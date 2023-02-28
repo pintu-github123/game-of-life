@@ -37,8 +37,20 @@ pipeline{
                    }
              }
         
+       }
 
+       post {
+        success {
+            // send the success email
+            mail bcc: '', body: 'Build Successfull', cc: 'sksahoo2007@gmail.com', from: 'TCS World bank Project', replyTo: '', 
+	    subject: 'game-of-line Pipeline Project', to: 'subhrak.sahoo@gmail.com'
+            echo "Success"
         }
+        unsuccessful {
+            //send the unsuccess email
+            echo "failure"
+        }
+    }
         
 }    
 

@@ -48,6 +48,15 @@ pipeline{
        }
 
        
-        
+        post{
+	    //https://www.jenkins.io/doc/book/pipeline/syntax/#post
+            always{
+	        //https://www.jenkins.io/doc/pipeline/steps/workflow-basic-steps/#mail-mail
+                mail from: "devops@qt.com",
+                to: 'team@qt.com',
+                subject: "Status of the pipeline ${currentBuild.fullDisplayName}",
+                body: "${env.BUILD_URL} has a result ${currentBuild.result}"
+	    }
+	}
 }    
 

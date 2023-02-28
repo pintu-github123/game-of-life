@@ -44,7 +44,7 @@ pipeline{
             // send the success email
             mail bcc: '', body: 'Build Successfull', cc: 'sksahoo2007@gmail.com', from: 'TCS World bank Project', replyTo: '', 
 	    subject: 'game-of-line Pipeline Project', to: 'subhrak.sahoo@gmail.com'
-            echo "Success"
+            echo "$BRANCH_NAME branch Successfull executed with Build N0 - $BUILD_NUMBER"
         }
         unsuccessful {
             //send the unsuccess email

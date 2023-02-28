@@ -23,7 +23,7 @@ pipeline{
               }
              stage('Build the Source Code'){
                     steps{
-                        sh 'mvn clean package test'
+                        sh 'mvn clean package '
                     }
              }
              stage('Archive The Artifact'){

@@ -13,6 +13,7 @@ node ('JDK-8'){
           }
 
           stage('Archive The Artifact'){
+            // Archive the artifact
            archiveArtifacts artifacts: '**/*.war', followSymlinks: false
          }
 

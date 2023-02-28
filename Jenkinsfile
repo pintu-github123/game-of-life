@@ -3,9 +3,18 @@ pipeline{
         agent{ label 'JDK-8'}
         
         environment{
-        PATH = "/opt/apache-maven-3.9.0/bin:$PATH"
+            PATH = "/opt/apache-maven-3.9.0/bin:$PATH"
         }
         
+	 options { 
+             timeout(time: 1, unit: 'HOURS')
+             retry(2)  //// if build failure plz retry it 
+        }
+	
+        triggers {
+            cron('0 * * * *') ////Build periodically every one hour
+        }
+
         stages{
               stage( 'SourceCode' ){
                     steps{
@@ -27,7 +36,8 @@ pipeline{
                         junit '**/surefire-reports/*.xml'
                    }
              }
-            
+        
+
         }
         
 }    
